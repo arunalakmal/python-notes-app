@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ee78d7b2ba9b547ed1c3f03d7c7b6798dca40cd103fb2b7f701011beaaf55c1f"
+            "sha256": "bd83d0eb42a52419a7d6ce238837a2fa1a4d09b34d6925d8a22a8731d231f94c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -19,11 +19,11 @@
     "default": {
         "alembic": {
             "hashes": [
-                "sha256:32a69b13a613aeb7e8093f242da60eff9daed13c0df02fff279c1b06c32965d2",
-                "sha256:b2e0a6cfd3a8ce936a1168320bcbe94aefa3f4463cd773a968a55071beb3cd37"
+                "sha256:295b54bbb92c4008ab6a7dcd1e227e668416d6f84b98b3c4446a2bc6214a556b",
+                "sha256:43942c3d4bf2620c466b91c0f4fca136fe51ae972394a0cc8b90810d664e4f5c"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==1.10.3"
+            "version": "==1.10.4"
         },
         "click": {
             "hashes": [
@@ -136,6 +136,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.1.2"
+        },
+        "mistune": {
+            "hashes": [
+                "sha256:0246113cb2492db875c6be56974a7c893333bf26cd92891c85f63151cee09d34",
+                "sha256:bad7f5d431886fcbaf5f758118ecff70d31f75231b34024a1341120340a65ce8"
+            ],
+            "index": "pypi",
+            "version": "==2.0.5"
         },
         "psycopg2-binary": {
             "hashes": [
