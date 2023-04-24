@@ -83,7 +83,7 @@ def create_app(test_config=None):
     
     @app.route('/')
     def index():
-        return 'Index'
+        return render_template('note_index.html', notes=g.user.notes)
 
     @app.route('/log_out', methods=('GET', 'DELETE'))
     def log_out():
