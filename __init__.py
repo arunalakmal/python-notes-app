@@ -16,7 +16,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    from .models import db, User, Note
+    from .models import db, User, Note, user_schema, users_schema
 
     db.init_app(app)
     migrate = Migrate(app, db)
@@ -77,7 +77,7 @@ def create_app(test_config=None):
             if error is None:
                 session.clear()
                 session['user_id'] = user.id
-                return redirect(url_for('index'))
+                return redirect(url_for('note_index'))
             flash(error, category='error')
         return render_template('log_in.html')
     
@@ -146,5 +146,15 @@ def create_app(test_config=None):
         db.session.commit()
         flash(f"Successfully deleted note: '{note.title}'", 'success')
         return redirect(url_for('note_index'))
+
+    @app.route('/api/users', methods=['GET'])
+    def get_users():
+        users = User.query.all()
+        return users_schema.dump(users)
+
+    @app.route('/api/users/<id>', methods=['GET'])
+    def get_user(id):
+        user = User.query.get(id)
+        return user_schema.dump(user)
 
     return app

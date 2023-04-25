@@ -1,7 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from mistune import markdown
 
 db = SQLAlchemy()
+ma = Marshmallow()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,3 +24,13 @@ class Note(db.Model):
     @property
     def body_html(self):
         return markdown(self.body)
+
+class UserSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+        load_instance = True
+        sqla_session = db.session
+        fields = ("id", "username", "created_at", "updated_at")
+
+user_schema = UserSchema()
+users_schema = UserSchema(many=True)

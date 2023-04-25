@@ -1,6 +1,8 @@
 pipenv==2023.4.20
 flask==2.2.3
-psycopg2-binary
-Flask-SQLAlchemy
-Flask-Migrate
-mistune
+psycopg2-binary==2.9.6
+Flask-SQLAlchemy==3.0.3
+Flask-Migrate==4.0.4
+mistune==2.0.5
+flask_marshmallow==0.15.0
+marshmallow-sqlalchemy==0.29.0
