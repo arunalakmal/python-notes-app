@@ -1,0 +1,6 @@
+pipenv==2023.4.20
+flask==2.2.3
+psycopg2-binary
+Flask-SQLAlchemy
+Flask-Migrate
+mistune
