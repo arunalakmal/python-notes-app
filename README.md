@@ -1,2 +1,2 @@
-# Sample Python Flask Note Taking Application
+# Python Flask Note Taking Application
 
