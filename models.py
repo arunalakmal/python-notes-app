@@ -11,7 +11,7 @@ class User(db.Model):
     password = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
-    notes = db.relationship('Note', backref='author', lazy=True)
+    notes = db.relationship('Note', backref='author', lazy=True, cascade="all, delete-orphan")
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)

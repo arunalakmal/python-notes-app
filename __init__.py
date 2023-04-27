@@ -156,5 +156,12 @@ def create_app(test_config=None):
     def get_user(id):
         user = User.query.get(id)
         return user_schema.dump(user)
+    
+    @app.route('/api/delete_users/<id>', methods=['DELETE'])
+    def delete_user(id):
+        user = User.query.get(id)
+        db.session.delete(user)
+        db.session.commit()
+        return user_schema.dump(user)
 
     return app
