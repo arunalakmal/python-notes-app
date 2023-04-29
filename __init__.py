@@ -163,5 +163,27 @@ def create_app(test_config=None):
         db.session.delete(user)
         db.session.commit()
         return user_schema.dump(user)
+    
+    @app.route('/api/add_user', methods=['POST'])
+    def add_user():
+        content_type = request.headers.get('Content-Type')
+        if (content_type == 'application/json'):
+            json = request.json
+            if json.__contains__('password') and json.__contains__('username'):
+                username = json['username']
+                password = json['password']
+                error = None
 
+                if User.query.filter_by(username=username).first():
+                    error = 'Username is already taken.\n'
+                    return error
+                if error is None:
+                    user = User(username=username, password=generate_password_hash(password))
+                    db.session.add(user)
+                    db.session.commit()
+                    return 'User successfully added\n'
+            else:
+                return 'no required content\n'
+        else:
+            return 'Content-Type not supported!\n'
     return app
