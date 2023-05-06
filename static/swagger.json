@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Python Flask Notes Application
+  description: >-
+    This is a python Notes taking based on the OpenAPI 3.0 specification.  
+
+
+    Some useful links:
+
+    - [The Notes App
+    repository](https://github.com/arunalakmal/python-notes-app)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8081
+tags:
+  - name: user
+    description: Operations about user
+paths:
+  /api/users:
+    get:
+      tags:
+        - user
+      summary: Get All Users
+      description: Retrieve all users.
+      operationId: getallusers
+      responses:
+        default:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/users/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      description: ''
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: 'The User id that needs to be fetched. Use user1 for testing. '
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+  /api/add_user:
+    post:
+      tags:
+        - user
+      summary: Add a new user with a username and a password with a body. 
+      description: ''
+      operationId: adduser
+      requestBody:
+        description: Adding a new user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string 
+                password: 
+                  type: string
+              example:
+                username: "john"
+                password: "SuperSecret"
+      responses:
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+  /api/delete_user/{id}:
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: The name that needs to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: John
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  requestBodies:
+    UserArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
