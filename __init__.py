@@ -3,7 +3,27 @@ import functools
 
 from flask import Flask, render_template, redirect, url_for, request, session, flash, g
 from flask_migrate import Migrate
+from flask_swagger_ui import get_swaggerui_blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
+
+SWAGGER_URL = '/api/docs'
+API_URL = '/static/swagger.json'
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,  # Swagger UI static files will be mapped to '{SWAGGER_URL}/dist/'
+    API_URL,
+    config={  # Swagger UI config overrides
+        'app_name': "Test application"
+    },
+    # oauth_config={  # OAuth config. See https://github.com/swagger-api/swagger-ui#oauth2-configuration .
+    #    'clientId': "your-client-id",
+    #    'clientSecret': "your-client-secret-if-required",
+    #    'realm': "your-realms",
+    #    'appName': "your-app-name",
+    #    'scopeSeparator': " ",
+    #    'additionalQueryStringParams': {'test': "hello"}
+    # }
+)
 
 def create_app(test_config=None):
     app = Flask(__name__)
@@ -20,6 +40,7 @@ def create_app(test_config=None):
 
     db.init_app(app)
     migrate = Migrate(app, db)
+    app.register_blueprint(swaggerui_blueprint)
 
     def require_login(view):
         @functools.wraps(view)
@@ -157,7 +178,7 @@ def create_app(test_config=None):
         user = User.query.get(id)
         return user_schema.dump(user)
     
-    @app.route('/api/delete_users/<id>', methods=['DELETE'])
+    @app.route('/api/delete_user/<id>', methods=['DELETE'])
     def delete_user(id):
         user = User.query.get(id)
         db.session.delete(user)

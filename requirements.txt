@@ -6,3 +6,4 @@ Flask-Migrate==4.0.4
 mistune==2.0.5
 flask_marshmallow==0.15.0
 marshmallow-sqlalchemy==0.29.0
+flask-swagger-ui==4.11.1
